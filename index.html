@@ -212,4 +212,33 @@
     <script>
         function startExperience() {
             const label = document.getElementById('openLabel');
-            label.textContent =
+            label.textContent = "A carregar...";
+
+            const startScreen = document.getElementById('start-screen');
+            const mainContent = document.getElementById('main-content');
+            const video = document.getElementById('bgVideo');
+
+            mainContent.classList.add('visible');
+
+            function reveal() {
+                startScreen.classList.add('fade-out');
+            }
+
+            video.muted = false;
+            const playPromise = video.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    reveal();
+                }).catch(() => {
+                    video.muted = true;
+                    video.play().then(reveal).catch(reveal);
+                });
+            } else {
+                reveal();
+            }
+        }
+    </script>
+
+</body>
+</html>
