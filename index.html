@@ -14,10 +14,10 @@
         html, body {
             width: 100%;
             height: 100%;
-            overflow: hidden;
-            background-color: #000000;
+            background-color: #c5beb3;
             font-family: 'Georgia', serif;
-            color: #ffffff;
+            color: #333333;
+            overflow-x: hidden;
         }
 
         /* Ecrã Inicial com Fundo Preto */
@@ -31,10 +31,16 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 10;
+            z-index: 100;
             background-color: #000000;
             padding: 20px;
             text-align: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #start-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
         }
 
         /* Texto Inicial */
@@ -47,7 +53,7 @@
             color: #f0f0f0;
         }
 
-        /* Contentor do Envelope com efeito ao passar o rato/toque */
+        /* Contentor do Envelope */
         .envelope-container {
             cursor: pointer;
             display: flex;
@@ -57,11 +63,10 @@
         }
 
         .envelope-container:hover {
-            transform: scale(1.04);
+            transform: scale(1.05);
             filter: brightness(1.1);
         }
 
-        /* Ícone do Envelope (SVG Elegante) */
         .envelope-icon {
             width: 110px;
             height: 110px;
@@ -73,7 +78,6 @@
             margin-bottom: 20px;
         }
 
-        /* Texto/Botão por baixo do Envelope */
         .open-label {
             font-family: Arial, sans-serif;
             font-size: 13px;
@@ -82,68 +86,149 @@
             color: #cccccc;
             border-bottom: 1px solid rgba(255, 255, 255, 0.4);
             padding-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+
+        /* Contentor Principal da Experiência */
+        #main-content {
+            display: none;
+            opacity: 0;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+            transition: opacity 1s ease;
+            background-color: #c5beb3;
+        }
+
+        #main-content.fade-in {
+            display: flex;
+            opacity: 1;
         }
 
         /* Contentor do Vídeo */
         .video-container {
-            position: relative;
-            width: 100vw;
+            width: 100%;
             height: 100vh;
-            overflow: hidden;
-            display: none; /* Oculto até clicar no envelope */
-            background-color: #c5beb3;
+            display: flex;
             justify-content: center;
             align-items: center;
+            background-color: #c5beb3;
         }
 
-        /* Vídeo ajustado ao ecrã */
         .video-container video {
             width: 100%;
             height: 100%;
             object-fit: contain;
         }
+
+        /* Secção de Detalhes Úteis por Baixo do Vídeo */
+        .details-section {
+            width: 100%;
+            max-width: 600px;
+            padding: 60px 20px 80px 20px;
+            text-align: center;
+            background-color: #c5beb3;
+        }
+
+        .details-title {
+            font-size: 22px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #2b2b2b;
+        }
+
+        .details-text {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 30px;
+        }
+
+        .maps-btn {
+            display: inline-block;
+            background-color: #2b2b2b;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 28px;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .maps-btn:hover {
+            background-color: #000000;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Ecrã Inicial: Texto + Envelope -->
+    <!-- Ecrã Inicial com Fundo Preto e Envelope -->
     <div id="start-screen">
         <h1 class="intro-title">Tatiana & Paulo apresentam</h1>
         
         <div class="envelope-container" onclick="startExperience()">
-            <!-- Desenho vectorial de um envelope elegante -->
             <svg class="envelope-icon" viewBox="0 0 24 24">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                 <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
-            <span class="open-label">Abrir Convite</span>
+            <span class="open-label" id="openLabel">Abrir Convite</span>
         </div>
     </div>
 
-    <!-- Contentor do Vídeo com controlos ativos -->
-    <div class="video-container" id="videoContainer">
-        <video id="bgVideo" playsinline loop controls preload="auto">
-            <source src="https://github.com/gui1994-code/wed/releases/download/1.0/1031.mp4" type="video/mp4">
-            O seu navegador não suporta vídeos.
-        </video>
+    <!-- Conteúdo Principal: Vídeo + Detalhes do Evento -->
+    <div id="main-content">
+        <div class="video-container">
+            <video id="bgVideo" playsinline loop controls preload="auto">
+                <source src="https://github.com/gui1994-code/wed/releases/download/1.0/1031.mp4" type="video/mp4">
+                O seu navegador não suporta vídeos.
+            </video>
+        </div>
+
+        <!-- Informações Discretas do Evento -->
+        <div class="details-section">
+            <h2 class="details-title">Localização</h2>
+            <p class="details-text">
+                <strong>Quinta Entre Vinhas</strong><br>
+                Rua das Flores, nº574<br>
+                S. Faustino, Guimarães
+            </p>
+            <a href="https://maps.google.com/?q=Quinta+Entre+Vinhas+Rua+das+Flores+574+S.+Faustino+Guimaraes" target="_blank" rel="noopener noreferrer" class="maps-btn">
+                Abrir no Google Maps
+            </a>
+        </div>
     </div>
 
     <script>
         function startExperience() {
-            // Esconde o ecrã do envelope
-            const startScreen = document.getElementById('start-screen');
-            startScreen.style.display = 'none';
-            
-            // Mostra o contentor do vídeo com o fundo ajustado
-            const container = document.getElementById('videoContainer');
-            container.style.display = 'flex';
-            
-            // Ativa o som e inicia o vídeo
+            const label = document.getElementById('openLabel');
+            label.textContent = "A carregar...";
+
             const video = document.getElementById('bgVideo');
             video.muted = false;
-            video.play().catch(error => {
+
+            video.play().then(() => {
+                transitionToContent();
+            }).catch(error => {
                 console.log("Erro ao reproduzir o vídeo:", error);
+                transitionToContent();
             });
+        }
+
+        function transitionToContent() {
+            const startScreen = document.getElementById('start-screen');
+            const mainContent = document.getElementById('main-content');
+
+            startScreen.classList.add('fade-out');
+
+            setTimeout(() => {
+                mainContent.classList.add('fade-in');
+            }, 300);
         }
     </script>
 
