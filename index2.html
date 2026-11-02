@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tatiana & Paulo · 17 Abril 2027</title>
+    
+    <!-- Fontes do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100%;
+            background-color: #c5beb3;
+            font-family: 'Playfair Display', Georgia, serif;
+            color: #333333;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* Ecrã Inicial com Fundo Preto */
+        #start-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            background-color: #000000;
+            padding: 20px;
+            text-align: center;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        #start-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* Título Inicial em Caligrafia */
+        .intro-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 52px;
+            font-weight: 400;
+            margin-bottom: 30px;
+            color: #ffffff;
+            letter-spacing: 1px;
+        }
+
+        /* Contentor do Envelope */
+        .envelope-container {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        .envelope-container:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+        .envelope-icon {
+            width: 100px;
+            height: 100px;
+            fill: none;
+            stroke: #ffffff;
+            stroke-width: 1.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            margin-bottom: 20px;
+        }
+
+        .open-label {
+            font-family: 'Playfair Display', serif;
+            font-size: 13px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #cccccc;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+            padding-bottom: 4px;
+        }
+
+        /* Contentor Principal */
+        #main-content {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            min-height: 100vh;
+            background-color: #c5beb3;
+        }
+
+        #main-content.visible {
+            display: flex;
+        }
+
+        /* Contentor do Vídeo */
+        .video-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #c5beb3;
+            flex-shrink: 0;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* Remover gradiente preto ao passar o rato nos controlos */
+        video::-webkit-media-controls-panel {
+            background-image: none !important;
+            background: transparent !important;
+        }
+        video::-webkit-media-controls-enclosure {
+            background: none !important;
+        }
+
+        /* Secção de Detalhes Úteis por Baixo do Vídeo */
+        .details-section {
+            width: 100%;
+            max-width: 600px;
+            padding: 60px 20px 80px 20px;
+            text-align: center;
+            background-color: #c5beb3;
+        }
+
+        .details-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 48px;
+            font-weight: 400;
+            margin-bottom: 15px;
+            color: #2b2b2b;
+        }
+
+        .details-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 17px;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 30px;
+        }
+
+        .details-text strong {
+            font-size: 20px;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .maps-btn {
+            display: inline-block;
+            background-color: #2b2b2b;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 28px;
+            font-family: 'Playfair Display', serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .maps-btn:hover {
+            background-color: #000000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Ecrã Inicial com Fundo Preto e Envelope -->
+    <div id="start-screen">
+        <h1 class="intro-title">Tatiana & Paulo apresentam</h1>
+        
+        <div class="envelope-container" onclick="startExperience()">
+            <svg class="envelope-icon" viewBox="0 0 24 24">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <span class="open-label" id="openLabel">Abrir Convite</span>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal: Vídeo + Detalhes do Evento -->
+    <div id="main-content">
+        <div class="video-container">
+            <!-- Nota: se o vídeo estiver na mesma pasta no GitHub, podes usar apenas src="1031.mp4" -->
+            <video id="bgVideo" playsinline loop controls preload="auto">
+                <source src="https://github.com/gui1994-code/wed/releases/download/1.0/1031.mp4" type="video/mp4">
+                O seu navegador não suporta vídeos.
+            </video>
+        </div>
+
+        <!-- Informações Discretas do Evento -->
+        <div class="details-section">
+            <h2 class="details-title">Localização</h2>
+            <p class="details-text">
+                <strong>Quinta Entre Vinhas</strong><br>
+                Rua das Flores, nº574<br>
+                S. Faustino, Guimarães
+            </p>
+            <a href="https://maps.google.com/?q=Quinta+Entre+Vinhas+Rua+das+Flores+574+S.+Faustino+Guimaraes" target="_blank" rel="noopener noreferrer" class="maps-btn">
+                Abrir no Google Maps
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function startExperience() {
+            const label = document.getElementById('openLabel');
+            label.textContent = "A carregar...";
+
+            const startScreen = document.getElementById('start-screen');
+            const mainContent = document.getElementById('main-content');
+            const video = document.getElementById('bgVideo');
+
+            // Força o vídeo a começar a carregar ativamente
+            video.load();
+
+            video.oncanplay = function() {
+                startScreen.classList.add('fade-out');
+                mainContent.classList.add('visible');
+                
+                video.muted = false;
+                video.play().catch(() => {
+                    video.muted = true;
+                    video.play();
+                });
+            };
+
+            // Plano de segurança caso o evento demore muito (força a entrada após 1 segundo)
+            setTimeout(() => {
+                startScreen.classList.add('fade-out');
+                mainContent.classList.add('visible');
+                video.play().catch(() => {});
+            }, 1000);
+        }
+    </script>
+
+</body>
+</html>
