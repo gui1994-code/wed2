@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tatiana & Paulo · 17 Abril 2027</title>
     
-    <!-- Fontes elegantes do Google Fonts (Great Vibes & Playfair Display) -->
+    <!-- Fontes do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -51,10 +51,10 @@
             pointer-events: none;
         }
 
-        /* Texto Inicial Manuscrito */
+        /* Título Inicial em Caligrafia */
         .intro-title {
             font-family: 'Great Vibes', cursive;
-            font-size: 48px;
+            font-size: 52px;
             font-weight: 400;
             margin-bottom: 30px;
             color: #ffffff;
@@ -131,6 +131,15 @@
             object-fit: contain;
         }
 
+        /* REMOVER O GRADIENTE/BARRA NEGRA AO FAZER HOVER */
+        video::-webkit-media-controls-panel {
+            background-image: none !important;
+            background: transparent !important;
+        }
+        video::-webkit-media-controls-enclosure {
+            background: none !important;
+        }
+
         /* Secção de Detalhes Úteis por Baixo do Vídeo */
         .details-section {
             width: 100%;
@@ -142,7 +151,7 @@
 
         .details-title {
             font-family: 'Great Vibes', cursive;
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 400;
             margin-bottom: 15px;
             color: #2b2b2b;
@@ -150,98 +159,6 @@
 
         .details-text {
             font-family: 'Playfair Display', serif;
-            font-size: 16px;
+            font-size: 17px;
             line-height: 1.8;
-            color: #4a4a4a;
-            margin-bottom: 30px;
-        }
-
-        .details-text strong {
-            font-size: 18px;
-            color: #1a1a1a;
-        }
-
-        .maps-btn {
-            display: inline-block;
-            background-color: #2b2b2b;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 14px 28px;
-            font-family: 'Playfair Display', serif;
-            font-size: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-
-        .maps-btn:hover {
-            background-color: #000000;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Ecrã Inicial com Fundo Preto e Envelope -->
-    <div id="start-screen">
-        <h1 class="intro-title">Tatiana & Paulo apresentam</h1>
-        
-        <div class="envelope-container" onclick="startExperience()">
-            <svg class="envelope-icon" viewBox="0 0 24 24">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            <span class="open-label" id="openLabel">Abrir Convite</span>
-        </div>
-    </div>
-
-    <!-- Conteúdo Principal: Vídeo + Detalhes do Evento -->
-    <div id="main-content">
-        <div class="video-container">
-            <video id="bgVideo" playsinline loop controls preload="auto">
-                <source src="https://github.com/gui1994-code/wed/releases/download/1.0/1031.mp4" type="video/mp4">
-                O seu navegador não suporta vídeos.
-            </video>
-        </div>
-
-        <!-- Informações Discretas do Evento -->
-        <div class="details-section">
-            <h2 class="details-title">Localização</h2>
-            <p class="details-text">
-                <strong>Quinta Entre Vinhas</strong><br>
-                Rua das Flores, nº574<br>
-                S. Faustino, Guimarães
-            </p>
-            <a href="https://maps.google.com/?q=Quinta+Entre+Vinhas+Rua+das+Flores+574+S.+Faustino+Guimaraes" target="_blank" rel="noopener noreferrer" class="maps-btn">
-                Abrir no Google Maps
-            </a>
-        </div>
-    </div>
-
-    <script>
-        function startExperience() {
-            const label = document.getElementById('openLabel');
-            label.textContent = "A carregar...";
-
-            const video = document.getElementById('bgVideo');
-            video.muted = false;
-
-            video.play().then(() => {
-                transitionToContent();
-            }).catch(error => {
-                console.log("Erro ao reproduzir o vídeo:", error);
-                transitionToContent();
-            });
-        }
-
-        function transitionToContent() {
-            const startScreen = document.getElementById('start-screen');
-            const mainContent = document.getElementById('main-content');
-
-            startScreen.classList.add('fade-out');
-            mainContent.classList.add('fade-in');
-        }
-    </script>
-
-</body>
-</html>
+            color: #4a4a4
