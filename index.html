@@ -107,12 +107,12 @@
 
         .video-container {
             width: 100vw;
-            min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             background-color: #d9cebe;
-            padding: 20px 0;
+            padding: 0;
+            margin: 0;
             flex-shrink: 0;
         }
 
@@ -128,7 +128,7 @@
         .details-section {
             width: 100%;
             max-width: 600px;
-            padding: 40px 20px 80px 20px;
+            padding: 50px 20px 80px 20px;
             text-align: center;
             background-color: #d9cebe;
         }
@@ -222,6 +222,7 @@
 
             function reveal() {
                 startScreen.classList.add('fade-out');
+                window.scrollTo(0, 0);
             }
 
             video.muted = false;
